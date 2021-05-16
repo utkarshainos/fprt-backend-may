@@ -17,7 +17,6 @@ services.signup = (data) =>
       const user = await new User({
         password: hash,
         ...remData,
-        isLoggedIn: true,
       }).save();
 
       //Generate Token
@@ -41,21 +40,12 @@ services.login = (data) =>
       //Get id
       const { email } = data;
 
-      const user = await User.findOneAndUpdate(
-        {
-          email,
+      const user = await User.findOne({
+        where: { email },
+        attributes: {
+          exclude: ["password"],
         },
-        {
-          $set: {
-            login_at: Date.now(), //Update login_at
-            isLoggedIn: true, //Update isLoggedIn flag
-          },
-        },
-        {
-          runValidators: true,
-          new: true,
-        }
-      ).exec();
+      });
 
       //Generate Token
       const token = await jwt.generate(user);

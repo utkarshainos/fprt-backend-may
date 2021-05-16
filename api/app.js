@@ -12,8 +12,7 @@ var logger = require("morgan");
 //Connect to database
 require("./config/db");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var usersRouter = require("./routes/user.route").default;
 
 var app = express();
 
@@ -23,7 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/user", usersRouter);
 
 module.exports = app;
