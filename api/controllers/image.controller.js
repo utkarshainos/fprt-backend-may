@@ -6,9 +6,10 @@ const controller = {};
 
 controller.upload = async (req, res) => {
   try {
-    const targetPath = path.join(__dirname, "../../", req.file.path);
-
-    const result = await imageService.upload(targetPath, req);
+    const result = await imageService.upload(
+      "images/" + req.file.filename,
+      req
+    );
 
     res.status(201).json(result);
   } catch (e) {
