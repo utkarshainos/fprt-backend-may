@@ -10,15 +10,15 @@ services.signup = (data) =>
   new Promise(async (res, rej) => {
     try {
       //Get Password and hash it
-      const { password, ...remData } = data;
+      const { password, email } = data;
 
       //Get hash
       const hash = await encryptionService.encrypt(password);
 
-      const user = await new User({
+      const user = await User.create({
         password: hash,
-        ...remData,
-      }).save();
+        email,
+      });
 
       //Generate Token
       const token = await jwt.generate(user);
@@ -50,8 +50,12 @@ services.login = (data) =>
         user.password
       );
 
+      if (!user) {
+        rej(new CustomError(404, "No user found with this email"));
+      }
+
       if (!isVerified) {
-        rej(new CustomError(403, "invalid credentials"));
+        rej(new CustomError(403, "Invalid credentials"));
       }
 
       //Generate Token
