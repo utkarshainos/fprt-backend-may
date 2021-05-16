@@ -6,10 +6,6 @@ const User = db.define("users", {
     primaryKey: true,
     defaultValue: Sequelize.UUIDV4,
   },
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
