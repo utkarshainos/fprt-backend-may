@@ -13,8 +13,6 @@ var logger = require("morgan");
 //Connect to database
 require("./config/db");
 
-const auth = require("./middlewares/auth.middleware").default;
-
 var usersRouter = require("./routes/user.route").default;
 var galleryRouter = require("./routes/image.route").default;
 
@@ -28,6 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", usersRouter);
-app.use("/gallery", auth, galleryRouter);
+app.use("/gallery", galleryRouter);
 
 module.exports = app;

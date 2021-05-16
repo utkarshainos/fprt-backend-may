@@ -1,4 +1,5 @@
 import controller from "../controllers/image.controller";
+const auth = require("../middlewares/auth.middleware").default;
 
 var express = require("express");
 var router = express.Router();
@@ -13,15 +14,15 @@ var storage = multer.diskStorage({
 var upload = multer({ storage });
 
 //Upload file
-router.post("/", upload.single("image"), controller.upload);
+router.post("/", auth, upload.single("image"), controller.upload);
 
 //Get all public images
 router.get("/public", controller.getPublicImages);
 
 //Get user images
-router.get("/my", controller.getPrivateImages);
+router.get("/my", auth, controller.getPrivateImages);
 
 //Delete image
-router.delete("/:imageId", controller.deleteImage);
+router.delete("/:imageId", auth, controller.deleteImage);
 
 export default router;
