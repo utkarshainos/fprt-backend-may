@@ -15,7 +15,7 @@ require("./config/db");
 const auth = require("./middlewares/auth.middleware").default;
 
 var usersRouter = require("./routes/user.route").default;
-var galleryRouter = require("./routes/gallery.route").default;
+var galleryRouter = require("./routes/image.route").default;
 
 var app = express();
 

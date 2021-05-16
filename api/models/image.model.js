@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import User from "./user.model";
 
-const Gallery = db.define("gallery", {
+const Image = db.define("images", {
   id: {
     type: Sequelize.UUID,
     primaryKey: true,
@@ -37,10 +37,10 @@ const Gallery = db.define("gallery", {
   },
 });
 
-Gallery.belongsTo(User);
+Image.belongsTo(Image);
 
-// Gallery.sync({
+// Image.sync({
 //   force: true,
 // });
 
-export default Gallery;
+export default Image;

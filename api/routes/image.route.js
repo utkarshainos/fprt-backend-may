@@ -1,4 +1,4 @@
-import controller from "../controllers/gallery.controller";
+import controller from "../controllers/image.controller";
 
 var express = require("express");
 var router = express.Router();
@@ -14,5 +14,11 @@ var upload = multer({ storage });
 
 //Upload file
 router.post("/", upload.single("image"), controller.upload);
+
+//Get all public images
+router.get("/public", controller.getPublicImages);
+
+//Get user images
+router.get("/my", controller.getPrivateImages);
 
 export default router;
