@@ -17,12 +17,12 @@ export default async (req, res, next) => {
       //Get the data
       const data = jwt.verify(token, secret_key);
 
-      //Add _id to req
-      req.id = data.id;
-
       const doc = await User.findOne({
         id: req.id,
       });
+
+      //inject user in request object
+      req.user = doc;
 
       next();
     } else {

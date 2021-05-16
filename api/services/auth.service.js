@@ -12,7 +12,6 @@ token.generate = (data) =>
       const obj = {
         id: data.id,
       };
-      console.log(obj);
 
       const token = jwt.sign(
         {
