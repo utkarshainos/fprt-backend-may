@@ -21,4 +21,7 @@ router.get("/public", controller.getPublicImages);
 //Get user images
 router.get("/my", controller.getPrivateImages);
 
+//Delete image
+router.delete("/:imageId", controller.deleteImage);
+
 export default router;

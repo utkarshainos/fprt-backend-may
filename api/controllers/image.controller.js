@@ -36,4 +36,14 @@ controller.getPrivateImages = async (req, res) => {
   }
 };
 
+controller.deleteImage = async (req, res) => {
+  try {
+    const result = await imageService.deleteImage(req);
+
+    res.status(200).json(result);
+  } catch (e) {
+    handleErrors(e, res);
+  }
+};
+
 export default controller;

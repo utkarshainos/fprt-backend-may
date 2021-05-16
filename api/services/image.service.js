@@ -1,4 +1,6 @@
 import Image from "../models/image.model";
+import { unlinkSync } from "fs";
+import CustomError from "../errorHandlers/CustomError";
 
 const service = {};
 
@@ -56,6 +58,43 @@ service.getPrivateImages = (req) =>
       });
 
       res(images);
+    } catch (error) {
+      rej(error);
+    }
+  });
+
+//Delete image
+service.deleteImage = (req) =>
+  new Promise(async (res, rej) => {
+    try {
+      const user = req.user;
+      const { imageId } = req.params;
+
+      const image = await Image.findOne({
+        where: {
+          user_id: user.id,
+          id: imageId,
+        },
+      });
+
+      if (!image) {
+        rej(new CustomError(404, "No Image found"));
+      }
+
+      //Delete record from db
+      await Image.destroy({
+        where: {
+          user_id: user.id,
+          id: imageId,
+        },
+      });
+
+      //remove file from storage
+      await unlinkSync(image.url);
+
+      res({
+        message: "Images has been deleted",
+      });
     } catch (error) {
       rej(error);
     }
