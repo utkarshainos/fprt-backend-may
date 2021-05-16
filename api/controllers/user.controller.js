@@ -1,4 +1,3 @@
-import User from "../models/user.model";
 import service from "../services/user.service";
 import { handleErrors } from "../errorHandlers/error.handler";
 

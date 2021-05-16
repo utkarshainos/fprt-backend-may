@@ -1,6 +1,7 @@
 import User from "../models/user.model";
 import encryptionService from "../services/encryption.service";
 import jwt from "../services/auth.service";
+import CustomError from "../errorHandlers/CustomError";
 
 const services = {};
 
@@ -38,14 +39,20 @@ services.login = (data) =>
   new Promise(async (res, rej) => {
     try {
       //Get id
-      const { email } = data;
+      const { email, password } = data;
 
       const user = await User.findOne({
         where: { email },
-        attributes: {
-          exclude: ["password"],
-        },
       });
+
+      const isVerified = await encryptionService.verify(
+        password,
+        user.password
+      );
+
+      if (!isVerified) {
+        rej(new CustomError(403, "invalid credentials"));
+      }
 
       //Generate Token
       const token = await jwt.generate(user);

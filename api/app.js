@@ -13,6 +13,7 @@ var logger = require("morgan");
 require("./config/db");
 
 var usersRouter = require("./routes/user.route").default;
+var galleryRouter = require("./routes/gallery.route").default;
 
 var app = express();
 
@@ -23,5 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", usersRouter);
+app.use("/gallery", galleryRouter);
 
 module.exports = app;
