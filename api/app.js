@@ -1,12 +1,16 @@
 import "@babel/polyfill";
 import dotenv from "dotenv";
 dotenv.config({
-  path: "../.env",
+  path: ".env",
 });
+
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+
+//Connect to database
+require("./config/db");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");

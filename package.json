@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run build && node dist/bin/www",
-    "test": "nodemon --exec babel-node .api/bin/www",
+    "test": "nodemon --exec babel-node ./api/bin/www",
     "build": "rimraf dist/ && babel ./api/ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
   },
   "dependencies": {
