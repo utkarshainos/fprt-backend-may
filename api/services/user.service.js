@@ -15,6 +15,14 @@ services.signup = (data) =>
       //Get hash
       const hash = await encryptionService.encrypt(password);
 
+      const user1 = await User.findOne({
+        where: { email },
+      });
+
+      if (user1) {
+        rej(new CustomError(409, "Email already exists"));
+      }
+
       const user = await User.create({
         password: hash,
         email,
