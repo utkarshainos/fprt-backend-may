@@ -1,16 +1,14 @@
 import { handleErrors } from "../errorHandlers/error.handler";
 import path from "path";
 import imageService from "../services/image.service";
+import firebaseService from "../services/firebase.service";
 
 const controller = {};
 
 controller.upload = async (req, res) => {
   try {
-    const result = await imageService.upload(
-      "images/" + req.file.filename,
-      req
-    );
-
+    const url = await firebaseService.upload(req.file.path);
+    const result = await imageService.upload(url[0], req);
     res.status(201).json(result);
   } catch (e) {
     handleErrors(e, res);

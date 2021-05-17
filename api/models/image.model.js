@@ -8,7 +8,7 @@ const Image = db.define("images", {
     defaultValue: Sequelize.UUIDV4,
   },
   url: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
   },
   user_id: {

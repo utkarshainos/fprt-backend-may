@@ -12,6 +12,7 @@ var logger = require("morgan");
 
 //Connect to database
 require("./config/db");
+require("./config/firebase").default;
 
 var usersRouter = require("./routes/user.route").default;
 var galleryRouter = require("./routes/image.route").default;
